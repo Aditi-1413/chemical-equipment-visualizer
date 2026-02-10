@@ -132,9 +132,20 @@ class UploadWidget(QWidget):
     
     def upload_file(self):
         if self.selected_file:
-            self.upload_callback(self.selected_file)
-            self.upload_btn.setEnabled(False)
-            self.upload_btn.setText("Uploading...")
+            try:
+                # Disable button during upload
+                self.upload_btn.setEnabled(False)
+                self.upload_btn.setText("Uploading...")
+            
+
+                self.upload_callback(self.selected_file)
+            
+            except Exception as e:
+                print(f"Upload error: {e}")
+                QMessageBox.critical(self, "Upload Error", str(e))
+            finally:
+                self.upload_btn.setEnabled(True)
+                self.upload_btn.setText("Upload and Process")
     
     def drag_enter_event(self, event: QDragEnterEvent):
         if event.mimeData().hasUrls():

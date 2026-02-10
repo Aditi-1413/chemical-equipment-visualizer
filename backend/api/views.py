@@ -15,7 +15,7 @@ from reportlab.lib import colors
 class DatasetViewSet(viewsets.ModelViewSet):
     queryset = Dataset.objects.all()
     serializer_class = DatasetSerializer
-    permission_classes = [IsAuthenticated]  # Change to IsAuthenticated for auth
+    permission_classes = [AllowAny]  # ✅ Changed from IsAuthenticated
     
     def list(self, request):
         """List last 5 datasets"""
